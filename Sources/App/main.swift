@@ -1,5 +1,5 @@
 import Vapor
-import VaporPostgreSQL
+//import VaporPostgreSQL
 import VaporMySQL
 import Foundation
 
@@ -11,11 +11,7 @@ try drop.addProvider(VaporMySQL.Provider)
 drop.preparations.append(Acronym.self)
 
 drop.get("version") { request in
-    if let db = drop.database?.driver as? PostgreSQLDriver {
-        let dbVersion = try db.raw("select version()")
-        return try JSON(node: dbVersion)
-    }
-    else if let db = drop.database?.driver as? MySQLDriver {
+    if let db = drop.database?.driver as? MySQLDriver {
         let dbVersion = try db.raw("select version()")
         return try JSON(node: dbVersion)
         // Doesn't work 
